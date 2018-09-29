@@ -57,6 +57,7 @@ public class Gerente {
 			return pedidos.remove(iMenor);
 		}
 	}
+
 	
 	/*public static void dividirServico(int regra, int distribuicao) {
 		Set<Pedido> servico = organizar(regra);
