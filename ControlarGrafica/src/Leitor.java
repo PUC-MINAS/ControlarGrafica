@@ -1,12 +1,14 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Leitor {
 	
-	public static Set<Pedido> ler(String nomeArquivo) {
-		Set<Pedido> list = new LinkedHashSet<Pedido>();	
+	public List<Pedido> ler(String nomeArquivo) {
+		List<Pedido> list = new ArrayList<Pedido>();	
 		
 		try {
 			FileInputStream arq = new FileInputStream(nomeArquivo);
