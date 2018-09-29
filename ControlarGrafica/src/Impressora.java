@@ -12,12 +12,12 @@ public class Impressora extends Thread{
 	@Override
 	public void run() {
 			this.servico.forEach(p->{
-				int numPg = p.getNumPag(),tempo=1;
+				int numPg = p.getFolhas(),tempo=1;
 				for(int i = 80;i < numPg;i+=80) {
 					tempo++;
 					numPg-=80;
 				}
-				p.setTempoGasto(tempo);
+				
 				Regras.tempo += tempo;
 				try {
 					Thread.sleep((long) 0.25);
