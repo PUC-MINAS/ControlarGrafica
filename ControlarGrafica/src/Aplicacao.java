@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Aplicacao {
@@ -5,7 +6,12 @@ public class Aplicacao {
 	public static final Scanner scan = new Scanner(System.in); 
 	
 	public static void main(String[] args) {
-		Gerente.dividirServico(1, 2);
+		
+		Leitor a = new Leitor();
+		Gerente gerente = new Gerente(a.ler("dadosGrafica.txt"));
+		
+		System.out.println(gerente.getPedidoMaiorPrioridade());
+		System.out.println(gerente.getPedidoMenorTrabalho());
 		
 		
 //		Regras.fifo().forEach(p->{

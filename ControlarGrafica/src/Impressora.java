@@ -13,9 +13,11 @@ public class Impressora extends Thread{
 
 	@Override
 	public void run() {
+
 		int pgImpri = servico.getNumPag(); 
 		for(int i = 80;i < pgImpri;i+=80) {
 			pgImpri-=80;
 		}
+
 	}
 }
