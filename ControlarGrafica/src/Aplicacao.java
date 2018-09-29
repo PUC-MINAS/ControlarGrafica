@@ -9,7 +9,7 @@ public class Aplicacao {
 		Leitor a = new Leitor();
 		Gerente gerente = new Gerente(a.ler("dadosGrafica.txt"));
 		
-		Impressora A = new Impressora(gerente, 1);
+		Impressora A = new Impressora(gerente, 2);
 		
 		A.start();
 		

@@ -28,10 +28,15 @@ public class Impressora extends Thread{
 		}*/
 		
 		if(this.regra == 1) {
-			System.out.println( gerente.getPedidoMaiorPrioridade());
+			while (this.gerente.temPedido()) {
+				System.out.println( gerente.getPedidoMaiorPrioridade());
+			}
+			
 		}
 		else {
-			System.out.println(this.gerente.getPedidoMenorTrabalho());
+			while (this.gerente.temPedido()) {
+				System.out.println(this.gerente.getPedidoMenorTrabalho());
+			}
 		}
 		
 		

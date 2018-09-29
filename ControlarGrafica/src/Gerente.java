@@ -57,6 +57,10 @@ public class Gerente {
 			return pedidos.remove(iMenor);
 		}
 	}
+	
+	public boolean temPedido () {
+		return this.pedidos.isEmpty() == false;
+	}
 
 	
 	/*public static void dividirServico(int regra, int distribuicao) {
