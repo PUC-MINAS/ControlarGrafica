@@ -1,14 +1,17 @@
 
 public class Impressora extends Thread{
 	
-	private Pedido servico;
-	
+	private Pedido servico;	
 	private Gerente gerente;
 	private int regra;
+	private int tempoTrabalho;
+	private String nome;
 	
-	public Impressora (Gerente g, int regra) {
+	public Impressora (Gerente g, int regra, String nome) {
 		this.gerente = g;
 		this.regra = regra;
+		this.nome = nome;
+		this.tempoTrabalho = 0;
 	}
 		
 	public Pedido getServico() {
@@ -29,17 +32,26 @@ public class Impressora extends Thread{
 		
 		if(this.regra == 1) {
 			while (this.gerente.temPedido()) {
-				System.out.println( gerente.getPedidoMaiorPrioridade());
+				Pedido p = gerente.getPedidoMaiorPrioridade();
+				this.tempoTrabalho += p.tempoServico();
+				System.out.println(this.nome + " - " + p + " - Tempo de trabalho: " + this.tempoTrabalho);
+				this.tempoTrabalho += 15;
 			}
 			
 		}
 		else {
 			while (this.gerente.temPedido()) {
-				System.out.println(this.gerente.getPedidoMenorTrabalho());
+				Pedido p = this.gerente.getPedidoMenorTrabalho();
+				this.tempoTrabalho += p.tempoServico();
+				System.out.println(this.nome + " - " + p + " - Tempo de trabalho: " + this.tempoTrabalho);
+				this.tempoTrabalho += 15;
 			}
 		}
 		
-		
 
+	}
+	
+	public int tempoTrabalho() {
+		return this.tempoTrabalho;
 	}
 }
