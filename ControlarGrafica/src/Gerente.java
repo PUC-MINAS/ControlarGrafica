@@ -3,7 +3,7 @@ import java.util.Set;
 
 public class Gerente {
 	
-	List<Pedido> pedidos;
+	private List<Pedido> pedidos;
 	
 	public Gerente (List<Pedido> pedidos) {
 		this.pedidos = pedidos;
@@ -15,7 +15,7 @@ public class Gerente {
 		}
 	}
 	
-	public Pedido getPedidoMaiorPrioridade () {
+	public synchronized Pedido getPedidoMaiorPrioridade () {
 		if(this.pedidos.isEmpty()) {
 			return null;
 		}
@@ -32,13 +32,12 @@ public class Gerente {
 			}
 			
 			
-			
 			return pedidos.remove(iMaior);
 		}
 		
 	}
 	
-	public Pedido getPedidoMenorTrabalho() {
+	public synchronized Pedido getPedidoMenorTrabalho() {
 		if(this.pedidos.isEmpty()) {
 			return null;
 		}
@@ -54,6 +53,7 @@ public class Gerente {
 				}
 			}			
 			
+			
 			return pedidos.remove(iMenor);
 		}
 	}
@@ -61,6 +61,7 @@ public class Gerente {
 	public boolean temPedido () {
 		return this.pedidos.isEmpty() == false;
 	}
+	
 
 	
 	/*public static void dividirServico(int regra, int distribuicao) {

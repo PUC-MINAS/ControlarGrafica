@@ -76,5 +76,9 @@ public class Pedido implements Comparable<Pedido> {
 		}
 		return 1;
 	}
+	
+	public int tempoServico() {
+		return (this.folhas / 80) * 60;
+	}
 
 }
