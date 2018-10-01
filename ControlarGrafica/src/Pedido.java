@@ -6,6 +6,7 @@ public class Pedido implements Comparable<Pedido> {
 	private double preco;
 	private int prazo;
 	private int prioridade;
+	public static final int SEM_PRIORIDADE = 10000;
 	
 	public Pedido (String nome, int folhas, double preco, int prazo) {
 		this.setNome(nome);
@@ -15,10 +16,14 @@ public class Pedido implements Comparable<Pedido> {
 		this.setPrioridade(this.calcPrioridade(folhas, prazo));
 	}
 	
-	public int calcPrioridade(int folhas, int prazo){
+	public void calcularPrioridade() {
+		this.setPrioridade(this.calcPrioridade(folhas, prazo));
+	}
+	
+	private int calcPrioridade(int folhas, int prazo){
 		int tempoTrabalho = folhas / 80;
 		if (prazo <= 0 || prazo < tempoTrabalho ){
-			return 10000;
+			return Pedido.SEM_PRIORIDADE;
 		}
 		else {
 			return prazo - tempoTrabalho;
