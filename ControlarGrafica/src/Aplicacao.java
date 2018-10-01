@@ -15,9 +15,10 @@ public class Aplicacao {
 		A.start();
 		B.start();
 		
-		A.join();  B.join();
-		
-		System.out.println("Tempo total: " + (A.tempoTrabalho() + B.tempoTrabalho()));
+		A.join();  B.join(); 
+		System.out.println();
+		System.out.println(A.getName() + " Tempo trabalho de trabalho: " + A.tempoTrabalhoEmHoras() + " - Atrasos: " + A.getAtrasos() );
+		System.out.println(B.getName() + " Tempo trabalho de trabalho: " + B.tempoTrabalhoEmHoras() + " - Atrasos: " + B.getAtrasos() );
 		
 		
 		

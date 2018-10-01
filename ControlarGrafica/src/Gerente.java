@@ -31,6 +31,7 @@ public class Gerente {
 				}
 			}
 			
+			//this.recalcularPrioridade();
 			
 			return pedidos.remove(iMaior);
 		}
@@ -53,6 +54,7 @@ public class Gerente {
 				}
 			}			
 			
+			//this.recalcularPrioridade();
 			
 			return pedidos.remove(iMenor);
 		}
@@ -60,6 +62,12 @@ public class Gerente {
 	
 	public boolean temPedido () {
 		return this.pedidos.isEmpty() == false;
+	}
+	
+	public void recalcularPrioridade() {
+		for(Pedido p : this.pedidos) {
+			p.calcularPrioridade();
+		}
 	}
 	
 
