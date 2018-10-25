@@ -8,6 +8,8 @@ public class Impressora extends Thread{
 	private String nome;
 	private int atrasos;
 	private int pedidosAtendidos;
+	private int pedidosAtendidosAteMeioDia;
+	private final static int MEIODIA = 14400; //em segundos
 	
 	public Impressora (Gerente g, int regra, String nome) {
 		super(nome);
@@ -17,6 +19,7 @@ public class Impressora extends Thread{
 		this.tempoTrabalho = 0;
 		this.atrasos = 0;
 		this.pedidosAtendidos= 0;
+		pedidosAtendidosAteMeioDia = 0;
 		
 	}
 		
@@ -31,6 +34,10 @@ public class Impressora extends Thread{
 	public void setServico(Pedido servico) {
 		this.servico = servico;
 	}
+	
+	public int getPedidosAtendidosAteMeioDia() {
+		return this.pedidosAtendidosAteMeioDia;
+	}
 
 	@Override
 	public void run() {
@@ -40,7 +47,10 @@ public class Impressora extends Thread{
 				
 				Pedido p = gerente.getPedidoMaiorPrioridade();
 				this.tempoTrabalho += p.tempoServico();
-				String s = this.nome + " - " + p + " - Tempo de trabalho: " + this.tempoTrabalho / 60;
+				
+				if (this.tempoTrabalho < Impressora.MEIODIA) this.pedidosAtendidosAteMeioDia++;
+				
+				String s = this.nome + " - " + p + " - Tempo de trabalho: " + tempoTrabalhoEmMinutos();
 				
 				if ( p.getPrioridade() != Pedido.SEM_PRIORIDADE && p.getPrazo()*60 < this.tempoTrabalho) {
 					s += " - Atrasado";
@@ -52,7 +62,7 @@ public class Impressora extends Thread{
 				
 				System.out.println(s);
 				try {
-					Thread.sleep(p.tempoServico());
+					Thread.sleep(p.tempoServico() / 50);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -66,7 +76,10 @@ public class Impressora extends Thread{
 			while (this.gerente.temPedido()) {
 				Pedido p = this.gerente.getPedidoMenorTrabalho();
 				this.tempoTrabalho += p.tempoServico();
-				String s = this.nome + " - " + p + " - Tempo de trabalho: " + this.tempoTrabalho / 60;
+				
+				if (this.tempoTrabalho < Impressora.MEIODIA) this.pedidosAtendidosAteMeioDia++;
+				
+				String s = this.nome + " - " + p + " - Tempo de trabalho: " + tempoTrabalhoEmMinutos();
 				
 				if ( p.getPrioridade() != Pedido.SEM_PRIORIDADE && p.getPrazo()*60 < this.tempoTrabalho) {
 					s += " - Atrasado";
@@ -78,7 +91,7 @@ public class Impressora extends Thread{
 				
 				System.out.println(s);
 				try {
-					Thread.sleep(p.tempoServico());
+					Thread.sleep(p.tempoServico() / 50);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -99,7 +112,25 @@ public class Impressora extends Thread{
 		return this.tempoTrabalho() / 60 / 60;
 	}
 	
+	public int tempoTrabalhoEmMinutos() {
+		return this.tempoTrabalho() / 60;
+	}
+	
 	public int getPedidosAtendidos() {
 		return this.pedidosAtendidos;
+	}
+	
+	public String getRegra(){
+		if(this.regra == 1) return "Prioridade";
+		else return "Trabalho Mais Curto";
+	}
+	
+	public String relatorio() {
+		return getName() 
+				+ "\n--Tempo trabalho de trabalho: " + tempoTrabalhoEmMinutos() 
+				+ "\n--Regra de atendimento: " + getRegra()
+				+ "\n--Trabalhos Atendidos: " + getPedidosAtendidos()
+				+ "\n--Atendidos Ate Meio dia: " + getPedidosAtendidosAteMeioDia()
+				+ "\n--Atrasos: " + getAtrasos() + "\n";
 	}
 }
