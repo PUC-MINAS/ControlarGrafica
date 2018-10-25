@@ -15,6 +15,19 @@ public class Gerente {
 		}
 	}
 	
+	public int TempoTrabalhoTotal() {
+		int tempo = 0;
+		for(Pedido e : pedidos) {
+			tempo += e.tempoServico() + 15;
+		}
+		
+		return tempo;
+	}
+	
+	public int TempoTrabalhoTotalEmHoras() {
+		return TempoTrabalhoTotal() / 60 / 60;
+	}
+	
 	public synchronized Pedido getPedidoMaiorPrioridade () {
 		if(this.pedidos.isEmpty()) {
 			return null;
