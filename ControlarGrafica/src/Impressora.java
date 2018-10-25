@@ -34,11 +34,6 @@ public class Impressora extends Thread{
 
 	@Override
 	public void run() {
-
-		/*int pgImpri = servico.getNumPag(); 
-		for(int i = 80;i < pgImpri;i+=80) {
-			pgImpri-=80;
-		}*/
 		
 		if(this.regra == 1) {
 			while (this.gerente.temPedido()) {
@@ -102,5 +97,9 @@ public class Impressora extends Thread{
 	
 	public int tempoTrabalhoEmHoras() {
 		return this.tempoTrabalho() / 60 / 60;
+	}
+	
+	public int getPedidosAtendidos() {
+		return this.pedidosAtendidos;
 	}
 }
